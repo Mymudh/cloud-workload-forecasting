@@ -1,0 +1,17 @@
+__pycache__/
+*.py[cod]
+*.egg-info/
+.pytest_cache/
+.venv/
+venv/
+env/
+.env
+.env.*
+challenge_data/*.csv
+challenge_data/*.csv.gz
+.idea/
+.DS_Store
+Thumbs.db
+outputs/*
+!outputs/predictions.csv
+!outputs/model_comparison.csv
