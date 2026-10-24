@@ -6,4 +6,4 @@ active_vm_count,HistGradientBoosting,0.0,0.0
 aggregate_cpu_utilization,SeasonalNaive_12,0.0863570136622019,0.10422561268751783
 aggregate_cpu_utilization,HistGradientBoosting,0.08650159368036785,0.10751543705127152
 aggregate_cpu_utilization,Persistence,0.08757823581484588,0.10376606645395454
-aggregate_cpu_utilization,RandomForest,0.12388545981322485,0.1443825808819223
+aggregate_cpu_utilization,RandomForest,0.12388545981322545,0.1443825808819231
