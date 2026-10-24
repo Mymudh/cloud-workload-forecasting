@@ -92,18 +92,34 @@ Passing the tests confirms that the tested conditions succeeded; it does not, by
 
 ## 6. Results and Interpretation
 
-The pipeline generates the following result files:
+The forecasting pipeline compares four forecasting approaches for each target: Persistence, Seasonal Naive (12), Random Forest, and Histogram-Based Gradient Boosting.
 
-* `outputs/model_comparison.csv` — contains target names, model names, MAE, and RMSE.
-* `outputs/predictions.csv` — contains the forecasts for the next 24 timestamps.
+### 6.1 Model Comparison Results
 
-The inspected prediction output shows an active VM count of 10,000 across the displayed forecast rows. This is consistent with the constant historical VM count and the selected persistence baseline.
+The current model comparison output contains the following validation metrics:
 
-CPU utilization predictions vary across the forecast timestamps.
+| Target                    | Model                             |      MAE |     RMSE |
+| ------------------------- | --------------------------------- | -------: | -------: |
+| Active VM Count           | Persistence                       | 0.000000 | 0.000000 |
+| Active VM Count           | Seasonal Naive (12)               | 0.000000 | 0.000000 |
+| Active VM Count           | Random Forest                     | 0.000000 | 0.000000 |
+| Active VM Count           | Histogram-Based Gradient Boosting | 0.000000 | 0.000000 |
+| Aggregate CPU Utilization | Seasonal Naive (12)               | 0.086357 | 0.104226 |
+| Aggregate CPU Utilization | Histogram-Based Gradient Boosting | 0.086502 | 0.107515 |
+| Aggregate CPU Utilization | Persistence                       | 0.087578 | 0.103766 |
+| Aggregate CPU Utilization | Random Forest                     | 0.123885 | 0.144383 |
 
-These observations describe the current pipeline run. Model performance should be assessed using the completed chronological validation results, with metrics reported separately for each target.
+### 6.2 Interpretation
 
-Exploratory metrics obtained by evaluating against the final held-out targets must not be used for model selection. Forecast quality should not be claimed solely from the generated prediction values or successful output validation.
+**Active VM Count:** All four models recorded zero MAE and RMSE in the reported comparison. The observed active VM count remained constant at 10,000 across the analyzed timestamps. Therefore, these results reflect the characteristics of this dataset and do not demonstrate that the models can accurately forecast changing VM demand.
+
+**Aggregate CPU Utilization:** Seasonal Naive (12) achieved the lowest reported MAE of 0.086357. Persistence achieved the lowest reported RMSE of 0.103766. Because the current pipeline selects models using validation MAE, Seasonal Naive (12) is selected for CPU utilization.
+
+MAE and RMSE measure different aspects of prediction error. MAE measures average absolute error, while RMSE gives relatively greater weight to larger errors.
+
+These results should be interpreted in the context of the validation procedure and the limited workload history. They do not guarantee equivalent performance on future workloads or other cloud environments.
+
+The pipeline also generated 24 future prediction rows and reported that output validation passed. Successful output validation confirms basic structural and numerical checks; it does not independently establish forecast accuracy.
 
 ## 7. Cloud Operations Recommendations
 
